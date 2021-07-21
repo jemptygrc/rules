@@ -5,7 +5,7 @@
 *      :: Cliente:     QUEIJARIA SOALHEIRA JDAF
 *      :: Objetivo:    CONTROLAR FATURAÇÃO E DIVIDAS DE CLIENTE    
 * Histórico de Versões
-*      :: 20/07/2021 »» JM :: Criação
+*      :: 21/07/2021 »» JM :: Validações E cond pag com excepao Pronto pagamento
 *================================================================================================================================================
 
 
@@ -26,10 +26,11 @@ TEXT TO msel TEXTMERGE NOSHOW
 	WHERE
 	1=1 AND
 	CL.no=<<numCliente>> AND CL.estab=<<numEstab>>
-    AND cl.eplafond>=1
+	AND cl.eplafond>=1
 	AND CL.no<>594
 	AND CL.no<>1
 	AND CL.no<>567
+	and CL.TPDESC<>'PRONTO PAGAMENTO'
 ENDTEXT
 msg(msel)
 
@@ -46,28 +47,28 @@ lc_ClStamp = curs_sel.clstamp
 *
 ****************************************************************************************
 if ln_Plafond > 0 
-if ln_Plafond < ln_Saldo + ln_Total
+	if ln_Plafond < ln_Saldo + ln_Total
 
-	TEXT TO updt_cl TEXTMERGE NOSHOW
-		UPDATE CL SET
-		CL.nocredit=1
-		WHERE	
-		CL.clstamp='<<lc_ClStamp>>'
-	ENDTEXT
+		TEXT TO updt_cl TEXTMERGE NOSHOW
+			UPDATE CL SET
+			CL.nocredit=1
+			WHERE	
+			CL.clstamp='<<lc_ClStamp>>'
+		ENDTEXT
 
-msg(updt_cl)
+		msg(updt_cl)
 
-	if u_sqlexec ([BEGIN TRANSACTION])
-		if u_sqlexec(updt_cl)
-			u_sqlexec([COMMIT TRANSACTION])
-    		messagebox('O plafond do cliente foi ultrapassado! Estado de faturação alterado para "Faturação Cancelada"',64, 'GRINCOP')
-    		return .f.
-		else
-			u_sqlexec([ROLLBACK])
-			Messagebox("Erro - updt_cl - p.f. contracte o seu Administrador de Sistema!!")
-			exit
+		if u_sqlexec ([BEGIN TRANSACTION])
+			if u_sqlexec(updt_cl)
+				u_sqlexec([COMMIT TRANSACTION])
+    			messagebox('O plafond do cliente foi ultrapassado! Estado de faturação alterado para "Faturação Cancelada"',64, 'GRINCOP')
+    			return .f.
+			else
+				u_sqlexec([ROLLBACK])
+				Messagebox("Erro - updt_cl - p.f. contracte o seu Administrador de Sistema!!")
+				exit
+			endif
 		endif
 	endif
-endif
 endif
 return .t.
