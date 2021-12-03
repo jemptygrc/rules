@@ -1,10 +1,9 @@
 *================================================================================================================================================
-* GRINCOP LDA
-*      :: Data Criação:    12/08/2021
+*      :: Data CriaÃ§Ã£o:    12/08/2021
 *      :: Cliente:     XYZ
 *      :: Objetivo:    IMpedir gravacao de faturas com linhas com valores preenchidos e designacao vazia ou inferior a 2 letras     
-* Histórico de Versões
-*      :: 13/08/2021 »» JM :: Alteração de condições
+* HistÃ³rico de VersÃµes
+*      :: 13/08/2021 Â»Â» JM :: AlteraÃ§Ã£o de condiÃ§Ãµes
 *================================================================================================================================================
 
 LOCAL nrLinha,count_design
@@ -21,11 +20,11 @@ SCAN
 
     DO CASE
     CASE ((fi.Eslvu>0) or (fi.Esltt>0) or (fi.qtt>0)) AND (count_design<=2)
-        msg("Atenção! A linha nr: «"+nrLinha+"» tem valores de preço/total/quant. mas não tem designação")
+        msg("AtenÃ§Ã£o! A linha nr: Â«"+nrLinha+"Â» tem valores de preÃ§o/total/quant. mas nÃ£o tem designaÃ§Ã£o")
         return .f.
     CASE (count_design<=2)
         return .f.
-        msg("oiAtenção! A linha nr: «"+nrLinha+"» tem valores de preço/total/quant. mas não tem designação")
+        msg("oiAtenÃ§Ã£o! A linha nr: Â«"+nrLinha+"Â» tem valores de preÃ§o/total/quant. mas nÃ£o tem designaÃ§Ã£o")
 
     ENDCASE
 ENDSCAN
@@ -33,7 +32,7 @@ msg("FIM")
 return .t.
 
 
-*msg("Atenção! A linha nr: «"+nrLinha+"» deve ter três ou mais letras")
+*msg("AtenÃ§Ã£o! A linha nr: Â«"+nrLinha+"Â» deve ter trÃªs ou mais letras")
 
 
-*com a designação: «"+my_design+"»
+*com a designaÃ§Ã£o: Â«"+my_design+"Â»
