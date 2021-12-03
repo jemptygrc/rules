@@ -17,7 +17,7 @@
 
     'Definir email de envio
     'Dim emailsend as String=""
-    'emailsend+="joao.mendes@grincop.pt"
+'emailsend+="alguem@alguem.pt"
     'return emailsend
 
     'Definir assunto do email
@@ -38,4 +38,4 @@
     dim email as string = cdata.getumvalorstring("email", "cl", "cl.no='" & txtemail.value & "'")
     dim mform as mainform=mpage
     'xcutil.GenEmail(xcuser.useremail, email, "", "", "Assunto", xcutil.formatnotification(txtemail))
-    xcutil.GenEmail("joao.mendes@grincop.pt", "joao.mendes@grincop.pt", "", "", "Assunto", xcutil.formatnotification(txtemail))
+    xcutil.GenEmail("alguem@alguem.pt", "alguem@alguem.pt", "", "", "Assunto", xcutil.formatnotification(txtemail))
