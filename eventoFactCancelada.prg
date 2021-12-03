@@ -1,11 +1,11 @@
 *================================================================================================================================================
-* GRINCOP LDA
-*      :: Data Criação:    20/07/2021
-*      :: Programador:     João Mendes
-*      :: Cliente:     QUEIJARIA SOALHEIRA JDAF
-*      :: Objetivo:    CONTROLAR FATURAÇÃO E DIVIDAS DE CLIENTE    
-* Histórico de Versões
-*      :: 21/07/2021 »» JM :: Validações E cond pag com excepao Pronto pagamento
+
+*      :: Data CriaÃ§Ã£o:    20/07/2021
+
+
+*      :: Objetivo:    CONTROLAR FATURAÃ‡ÃƒO E DIVIDAS DE CLIENTE    
+* HistÃ³rico de VersÃµes
+*      :: 21/07/2021 Â»Â» JM :: ValidaÃ§Ãµes E cond pag com excepao Pronto pagamento
 *================================================================================================================================================
 
 
@@ -43,7 +43,7 @@ lc_ClStamp = curs_sel.clstamp
 
 ****************************************************************************************
 *
-* SE O PLAFOND FOR ULTRAPASSADO, VAMOS ATIVAR A FATURAÇÃO CANCELADA
+* SE O PLAFOND FOR ULTRAPASSADO, VAMOS ATIVAR A FATURAÃ‡ÃƒO CANCELADA
 *
 ****************************************************************************************
 if ln_Plafond > 0 
@@ -61,7 +61,7 @@ if ln_Plafond > 0
 		if u_sqlexec ([BEGIN TRANSACTION])
 			if u_sqlexec(updt_cl)
 				u_sqlexec([COMMIT TRANSACTION])
-    			messagebox('O plafond do cliente foi ultrapassado! Estado de faturação alterado para "Faturação Cancelada"',64, 'GRINCOP')
+    			messagebox('O plafond do cliente foi ultrapassado! Estado de faturaÃ§Ã£o alterado para "FaturaÃ§Ã£o Cancelada"',64, '')
     			return .f.
 			else
 				u_sqlexec([ROLLBACK])
